@@ -84,7 +84,7 @@ class Server:
         if incoming_data.startswith("/send"):
             if "->" in incoming_data:
                 action = "private"
-                _, message = incoming_data.split("->", 1)
+                _, message = incoming_data.split("/send ", 1)
             else:
                 action = "broadcast"
                 _, message = incoming_data.split(" ", 1)
@@ -120,7 +120,7 @@ class Server:
 
         sender_username, sender_peer = self.__get_user_data(sender)
 
-        recipient, message = message.split("->", 1)
+        recipient, message = message.split(" -> ", 1)
         recipient = recipient.strip()
         message = message.strip()
 

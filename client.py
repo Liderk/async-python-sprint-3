@@ -38,6 +38,7 @@ class Client:
 
             logger.debug(f"Введено: {message}")
             if message.startswith("/private"):
+                message = message.replace("/private ", "")
                 recipient, message = message.split(" ", 1)
                 await self._send(f"/send {recipient} -> {message}")
             elif message.startswith("/connect"):
@@ -45,6 +46,8 @@ class Client:
             elif message.startswith("/quit"):
                 await self._send(f"{message}")
                 self.client_connect = False
+            elif message.startswith("/status"):
+                await self._send(f"{message}")
             else:
                 await self._send(f"/send {message}")
             await asyncio.sleep(0.1)
