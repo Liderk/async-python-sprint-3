@@ -1,5 +1,3 @@
-# не получается запустить асинхронный сервер в тестах
-import asyncio
 import subprocess
 import time
 from unittest.mock import patch
