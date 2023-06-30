@@ -3,6 +3,7 @@ from asyncio import StreamReader, StreamWriter
 import logging
 from typing import Tuple, Dict, List
 
+from settings import settings
 from users import User
 
 logger = logging.getLogger(__file__)
@@ -59,6 +60,11 @@ class Server:
         await self._quit(writer)
 
     async def dispatch(self, msg: str, writer: StreamWriter):
+        # dispatch делал в попытке соблюдения принципа открытости/закрытости
+        # __get_message_data мне не нравится(но для учебного проекта подойдет)
+        # и он может меняться, а dispatch уже что бы не случилось
+        # останется таким же - принцип: "найти нужный метод, и вызвать его",
+        # не поменяется уже. Он достаточно прост.
         handler_name, message = self.__get_message_data(msg)
         logger.debug("handler name %s", handler_name)
         _, peer = self.__get_user_data(writer)
@@ -187,7 +193,7 @@ class Server:
 
 if __name__ == "__main__":
     server = Server(
-        host="127.0.0.1",
-        port=50007,
+        host=settings.host,
+        port=settings.port,
     )
     asyncio.run(server.run())

@@ -1,39 +1,6 @@
-import subprocess
-import time
 from unittest.mock import patch
 
 import pytest
-
-from client import Client
-from users import User
-
-
-@pytest.fixture
-def server_process():
-    process = subprocess.Popen(['python3', 'server.py'])
-    # даем время запустится процессу с сервером
-    time.sleep(2)
-    yield process
-    process.terminate()
-
-
-@pytest.fixture
-def users():
-    first = User("test1", [])
-    second = User("test2", [])
-    return first, second
-
-
-@pytest.fixture
-def client_1():
-    client = Client(port=50007)
-    return client
-
-
-@pytest.fixture
-def client_2():
-    client = Client(port=50007)
-    return client
 
 
 @pytest.mark.asyncio

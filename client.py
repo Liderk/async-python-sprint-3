@@ -3,6 +3,7 @@ import logging
 from typing import Optional
 
 from logger_config import get_logger
+from settings import settings
 
 logger = logging.getLogger(__file__)
 
@@ -79,5 +80,8 @@ class Client:
 
 if __name__ == "__main__":
     logger = get_logger(__file__)
-    client = Client()
+    client = Client(
+        host=settings.host,
+        port=settings.port,
+    )
     asyncio.run(client.run())
